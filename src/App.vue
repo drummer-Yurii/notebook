@@ -1,12 +1,15 @@
 <template>
+  <TheHeader title="Notebook"></TheHeader>
   <StoredResource :resource="storedResources"></StoredResource>
 </template>
 
 <script>
+import TheHeader from './components/layouts/TheHeader'
 import StoredResource from './components/learning-resources/StoredResource'
 export default {
   name: 'App',
   components: {
+    TheHeader,
     StoredResource,
     
   },
