@@ -1,22 +1,23 @@
 <template>
   <li>
-    <div>
+    <base-card>
       <header>
         <h3>{{ title }}</h3>
         <button>Delete</button>
       </header>
-    </div>
-    <p>{{ description }}</p>
-    <nav>
+      <p>{{ description }}</p>
+      <nav>
         <a :href="link">View Resource</a>
-    </nav>
+      </nav>
+    </base-card>
   </li>
 </template>
 
 <script>
 export default {
+  components: {},
   name: 'LearningResource',
-  props: ['title', 'description', 'link']
+  props: ['title', 'description', 'link'],
 };
 </script>
 
