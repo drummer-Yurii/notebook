@@ -1,9 +1,15 @@
 <template>
   <BaseCard>
-    <BaseButton @click="setSelectedTab('stored-resource')" :mode="storedResButtonMode">Stored Notes</BaseButton>
-    <BaseButton @click="setSelectedTab('add-resource')" :mode="addResButtonMode">Add Note</BaseButton>
+    <BaseButton @click="setSelectedTab('stored-resource')" :mode="storedResButtonMode"
+      >Stored Notes</BaseButton
+    >
+    <BaseButton @click="setSelectedTab('add-resource')" :mode="addResButtonMode"
+      >Add Note</BaseButton
+    >
   </BaseCard>
-  <component :is="selectedTab"></component>
+  <keep-alive>
+    <component :is="selectedTab"></component>
+  </keep-alive>
 </template>
 
 <script>
@@ -16,7 +22,7 @@ export default {
     BaseButton,
     BaseCard,
     StoredResource,
-    AddResource
+    AddResource,
   },
   name: 'TheResource',
   data() {
@@ -42,22 +48,33 @@ export default {
     setSelectedTab(tab) {
       this.selectedTab = tab;
     },
+    addNote(title, description, link) {
+      const newNote = {
+        id: new Date().toISOString(),
+        title: title,
+        description: description,
+        link: link,
+      };
+      this.storedResources.unshift(newNote);
+      this.selectedTab = 'stored-resource';
+    },
   },
 
   computed: {
     storedResButtonMode() {
-        return this.selectedTab === 'stored-resource' ? null : 'flat'
+      return this.selectedTab === 'stored-resource' ? null : 'flat';
     },
     addResButtonMode() {
-        return this.selectedTab === 'add-resource' ? null : 'flat'
-    }
+      return this.selectedTab === 'add-resource' ? null : 'flat';
+    },
   },
 
   provide() {
     return {
-        resource: this.storedResources
-    }
-  }
+      resource: this.storedResources,
+      addNote: this.addNote,
+    };
+  },
 };
 </script>
 
